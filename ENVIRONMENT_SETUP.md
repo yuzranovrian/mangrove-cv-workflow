@@ -38,7 +38,9 @@ Dokumen ini berisi panduan komprehensif instalasi dan konfigurasi seluruh infras
 ## 🐳 Langkah 3: Instalasi Docker Desktop & WSL 2
 
 1. Buka PowerShell sebagai **Administrator**, lalu jalankan perintah berikut untuk mengaktifkan WSL 2:
+   ```
    wsl --install
+   ```
 2. Restart komputer setelah proses setup WSL selesai.
 3. Unduh Docker Desktop di: `https://www.docker.com/products/docker-desktop/`
 4. Jalankan installer Docker Desktop, pastikan opsi **Use WSL 2 instead of Hyper-V** tercentang.
@@ -65,7 +67,9 @@ localhostForwarding=true
 
 4. Simpan file tersebut.
 5. Buka PowerShell/Command Prompt dan restart WSL agar konfigurasi baru aktif:
+   ```
    wsl --shutdown
+   ```
 
 ---
 
@@ -74,21 +78,32 @@ localhostForwarding=true
 ### A. Pindah Direktori & Clone ke Drive D
 1. Buka **Git Bash**.
 2. Berpindah dari drive C: ke drive D: menggunakan perintah `cd`:
+   ```
    cd /d/
+   ```
 3. Buat folder baru (opsional) atau langsung jalankan perintah clone WebODM:
+   ```
    git clone https://github.com/OpenDroneMap/WebODM.git --depth 1
+   ```
 4. Masuk ke dalam direktori folder WebODM yang baru dibuat:
+   ```
    cd WebODM
+   ```
 
 ### B. Menjalankan WebODM Tanpa Mengunci Terminal (Bisa Di-close)
 1. Jalankan script WebODM dalam mode *detached* (background):
+   ```
    ./webodm.sh start -d
+   ```
 2. Setelah proses pengunduhan container selesai dan muncul pesan sukses, kamu bisa **menutup terminal Git Bash** secara aman.
 3. Buka peramban (browser) dan akses WebODM di:
-   http://localhost:8000
+   ```http://localhost:8000```
 
 *Catatan Navigasi Git Bash:*
-- Cek lokasi direktori kamu saat ini: `pwd`
+- Cek lokasi direktori kamu saat ini: 
+   ```
+  pwd
+  ```
 - Menghentikan WebODM di kemudian hari: `cd /d/WebODM` lalu `./webodm.sh stop`
 
 ---
@@ -123,11 +138,17 @@ Agar PC kamu berfungsi sebagai **server/host CVAT** sehingga tim di kantor dapat
 
 ### C. Konfigurasi Environment Host CVAT & Menjalankan Container
 1. Di Git Bash (masih di dalam folder `/d/cvat`), atur variabel lingkungan `CVAT_HOST` menggunakan IP komputer kamu:
+   ```
    export CVAT_HOST=192.168.1.50
+   ```
 2. Jalankan container CVAT dalam mode *detached* (background):
+   ```
    docker compose up -d
+   ```
 3. Buat akun Administrator (Superuser) CVAT:
+   ```
    docker exec -it cvat_server python3 manage.py createsuperuser
+   ```
    (Masukkan username, email, dan password sesuai petunjuk di layar).
 
 ### D. Cara Akses CVAT
@@ -139,4 +160,11 @@ Agar PC kamu berfungsi sebagai **server/host CVAT** sehingga tim di kantor dapat
 
 *Catatan Penting Host LAN:*
 - Pastikan opsi **Private Network** pada Windows Firewall diizinkan (*allow access*) untuk Docker Desktop saat ada pop-up konfirmasi.
-- Jika IP komputer kamu berubah (*Dynamic IP*), kamu tinggal menjalankan ulang perintah `export CVAT_HOST=<IP_Baru>` dan `docker compose up -d`.
+- Jika IP komputer kamu berubah (*Dynamic IP*), kamu tinggal menjalankan ulang perintah 
+   ```
+   export CVAT_HOST=<IP_Baru>
+   ```
+   dan 
+   ```
+   docker compose up -d
+   ```

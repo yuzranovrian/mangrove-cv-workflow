@@ -14,7 +14,9 @@ Workflow otomatisasi deteksi dan perhitungan populasi benih/pohon mangrove dari 
    git clone <URL_REPOSITORY_GITHUB>
 
 2. Install seluruh dependency:
+   ```
    pip install -r requirements.txt
+   ```
 
 ---
 ## ⚙️ Persiapan Environment & Tools
@@ -32,8 +34,8 @@ Memotong file GeoTIFF raksasa menjadi potongan gambar kecil (640x640 piksel) aga
 
 1. Siapkan file GeoTIFF (misal: BenihBaik.tif) di dalam folder project.
 2. Buka 1_ortho_slicer.py dan sesuaikan path-nya:
-   - INPUT_GEOTIFF = r"dataset/raw/BenihBaik.tif"
-   - OUTPUT_DIR = r"dataset/tiles_BenihBaik_640/"
+   - `INPUT_GEOTIFF = r"dataset/raw/BenihBaik.tif"`
+   - `OUTPUT_DIR = r"dataset/tiles_BenihBaik_640/"`
 3. Klik kanan 1_ortho_slicer.py -> pilih Run '1_ortho_slicer'.
 4. Hasil pemotongan tersimpan di folder dataset/tiles_BenihBaik_640/.
 
@@ -52,8 +54,8 @@ Memotong file GeoTIFF raksasa menjadi potongan gambar kecil (640x640 piksel) aga
 Membagi hasil anotasi CVAT menjadi folder train (80%) dan val (20%) standar YOLO.
 
 1. Buka 2_split_val.py dan sesuaikan path folder:
-   - SOURCE_DIR = r"dataset/raw_cvat_BenihBaik"
-   - OUTPUT_DIR = r"dataset/yolo_BenihBaik"
+   - `SOURCE_DIR = r"dataset/raw_cvat_BenihBaik"`
+   - `OUTPUT_DIR = r"dataset/yolo_BenihBaik"`
 2. Klik kanan 2_split_val.py -> pilih Run '2_split_val'.
 3. Struktur dataset YOLO akan terbentuk di dataset/yolo_BenihBaik/.
 
@@ -63,9 +65,9 @@ Membagi hasil anotasi CVAT menjadi folder train (80%) dan val (20%) standar YOLO
 Melatih model AI untuk mengenali pola mangrove dari dataset yang telah disiapkan.
 
 1. Buka 3_yolo_trainer.py dan atur parameter training:
-   - DATASET_DIR = "dataset/yolo_BenihBaik"
-   - MODEL_VARIANT = "yolov8m.pt"
-   - EPOCHS = 100
+   - `DATASET_DIR = "dataset/yolo_BenihBaik"`
+   - `MODEL_VARIANT = "yolov8m.pt"`
+   - `EPOCHS = 100`
 2. Klik kanan 3_yolo_trainer.py -> pilih Run '3_yolo_trainer'.
 3. File bobot terbaik tersimpan di runs/detect/mangrove_BenihBaik_v1/weights/best.pt.
 
@@ -75,9 +77,9 @@ Melatih model AI untuk mengenali pola mangrove dari dataset yang telah disiapkan
 Menjalankan SAHI Engine pada GeoTIFF utuh untuk menghitung populasi mangrove secara otomatis.
 
 1. Buka 4_mangrove_counter.py dan arahkan ke file model:
-   - GEOTIFF_PATH = r"dataset/raw/BenihBaik.tif"
-   - MODEL_PATH = r"runs/detect/mangrove_BenihBaik_v1/weights/best.pt"
-   - OUTPUT_DIR = r"runs/detect/webodm_sahi_BenihBaik/"
+   - `GEOTIFF_PATH = r"dataset/raw/BenihBaik.tif"`
+   - `MODEL_PATH = r"runs/detect/mangrove_BenihBaik_v1/weights/best.pt"`
+   - `OUTPUT_DIR = r"runs/detect/webodm_sahi_BenihBaik/"`
 2. Klik kanan 4_mangrove_counter.py -> pilih Run '4_mangrove_counter'.
 3. Total populasi akan muncul di konsol, dan gambar visualisasi tersimpan di folder output.
 
@@ -87,8 +89,8 @@ Menjalankan SAHI Engine pada GeoTIFF utuh untuk menghitung populasi mangrove sec
 Mengonversi hasil deteksi menjadi file vektor spasial GeoJSON untuk diolah di QGIS / ArcGIS Pro.
 
 1. Buka 5_gis_exporter.py dan atur path-nya:
-   - GEOTIFF_PATH = r"dataset/raw/BenihBaik.tif"
-   - MODEL_PATH = r"runs/detect/mangrove_BenihBaik_v1/weights/best.pt"
-   - OUTPUT_GIS_DIR = r"runs/detect/webodm_gis_export_BenihBaik/"
+   - `GEOTIFF_PATH = r"dataset/raw/BenihBaik.tif"`
+   - `MODEL_PATH = r"runs/detect/mangrove_BenihBaik_v1/weights/best.pt"`
+   - `OUTPUT_GIS_DIR = r"runs/detect/webodm_gis_export_BenihBaik/"`
 2. Klik kanan 5_gis_exporter.py -> pilih Run '5_gis_exporter'.
 3. Drag & drop file mangrove_detections_BenihBaik.json dari folder output langsung ke QGIS atau ArcGIS Pro.
