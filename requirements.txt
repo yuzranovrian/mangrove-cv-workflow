@@ -1,0 +1,6 @@
+ultralytics>=8.0.0
+sahi>=0.11.0
+rasterio>=1.3.0
+opencv-python>=4.8.0
+shapely>=2.0.0
+geopandas>=0.13.0
